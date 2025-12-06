@@ -53,8 +53,6 @@ app.use("/api/v1/products", ProductRouter);
 
 
 
-
-
 app.listen(env.PORT, () => {
     console.log(`Server is runnig on port ${env.PORT}`)
 })

@@ -2,7 +2,7 @@ const dotEnv = require('dotenv');
 dotEnv.config();
 
 const envVariables = {
-    PORT: process.env.PORT_NUMBER,
+    PORT: process.env.PORT,
     mongodbURI: process.env.MONGODB_URI,
     accessToken: process.env.ACCESS_TOKEN,
 
