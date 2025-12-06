@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scatch - Login & Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-xl rounded-2xl w-full max-w-4xl p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Left Section -->
+    <div class="flex flex-col justify-center p-6">
+      <h1 class="text-4xl font-bold text-blue-600 mb-4">Welcome to Scatch</h1>
+      <p class="text-gray-600 mb-6">Welcome to Scatch – Your trusted e‑commerce partner. Login or create an account to continue.</p>
+      <img src="https://cdn-icons-png.flaticon.com/512/9068/9068645.png" alt="ecommerce" class="w-64 mx-auto opacity-90" />
+    </div>
+
+    <!-- Right Section: Login/Signup Form -->
+    <div class="p-6">
+      <div class="flex justify-center mb-6">
+        <button id="loginBtn" class="tab-btn px-4 py-2 text-blue-600 font-semibold border-b-2 border-blue-600">Login</button>
+        <button id="signupBtn" class="tab-btn px-4 py-2 text-gray-500 font-semibold">Signup</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" action="/login" method="POST" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium">Email</label>
+          <input type="email" name="email" class="w-full p-2 border rounded-md outline-none" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Password</label>
+          <input type="password" name="password" class="w-full p-2 border rounded-md outline-none" required />
+        </div>
+        <button class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">Login</button>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" action="/signup" method="POST" class="space-y-4 hidden">
+        <div>
+          <label class="block text-sm font-medium">Full Name</label>
+          <input type="text" name="name" class="w-full p-2 border rounded-md outline-none" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Email</label>
+          <input type="email" name="email" class="w-full p-2 border rounded-md outline-none" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Password</label>
+          <input type="password" name="password" class="w-full p-2 border rounded-md outline-none" required />
+        </div>
+        <button class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+
+    loginBtn.onclick = () => {
+      loginForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
+      loginBtn.classList.add("text-blue-600", "border-blue-600", "border-b-2");
+      signupBtn.classList.remove("text-blue-600", "border-blue-600", "border-b-2");
+      signupBtn.classList.add("text-gray-500");
+    };
+
+    signupBtn.onclick = () => {
+      signupForm.classList.remove("hidden");
+      loginForm.classList.add("hidden");
+      signupBtn.classList.add("text-blue-600", "border-blue-600", "border-b-2");
+      loginBtn.classList.remove("text-blue-600", "border-blue-600", "border-b-2");
+      loginBtn.classList.add("text-gray-500");
+    };
+  </script>
+</body>
+</html>
