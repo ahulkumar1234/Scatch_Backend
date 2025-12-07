@@ -47,7 +47,11 @@ const registerOwner = async (req, res) => {
         expiresIn: '1d',
     });
 
-    res.cookie('Ownertoken', Ownertoken)
+    res.cookie('Ownertoken', Ownertoken<{
+        httpOnly:true,
+        secure:true,
+        sameSite:"none"
+    })
 
 
     res.status(200).json({
@@ -89,7 +93,11 @@ const loginOwner = async (req, res) => {
         expiresIn: '1d',
     });
 
-    res.cookie('Ownertoken', Ownertoken);
+    res.cookie('Ownertoken', Ownertoken,{
+        httpOnly:true,
+        secure:true,
+        sameSite:"none"
+    });
 
     res.status(200).json({
         success: true,
@@ -109,8 +117,8 @@ const signoutOwner = async (req, res) => {
 
         res.clearCookie('Ownertoken', {
             httpOnly: true,
-            secure: false,
-            sameSite: "strict",
+            secure: true,
+            sameSite: "none",
         })
         res.status(200).json({ success: true, message: 'Singout successfully' })
 

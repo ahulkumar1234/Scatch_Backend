@@ -20,6 +20,28 @@ const getAllproducts = async (req, res) => {
     }
 }
 
+const getOneProducts = async (req, res) => {
+    try {
+        const product = await productModel.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found!"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: "Product fetched succesfully!",
+            data: product
+        })
+    } catch (error) {
+        res.status(509).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 const createProduct = async (req, res) => {
     const { title, description, price, category, stock } = req.body
     // const image = req.file
@@ -138,4 +160,4 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-module.exports = { createProduct, updateProduct, deleteProduct, getAllproducts }
+module.exports = { createProduct, updateProduct, deleteProduct, getAllproducts, getOneProducts }

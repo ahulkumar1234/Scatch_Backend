@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const ownerModel = require('../models/owners.model');
-const bcrypt = require('bcrypt');
 const { registerOwner, signoutOwner, loginOwner, getOwner } = require('../controllers/owner.controller')
 const Ownerauthmiddleware = require('../middlewares/ownerAuth.middleware')
 
