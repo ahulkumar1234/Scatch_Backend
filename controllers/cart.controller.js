@@ -18,7 +18,7 @@ const addtoCart = async (req, res) => {
         // If cart exists
         const product = cart.items.find(i => i.productId == productId);
         if (product) {
-            product.quantity = quantity + 1; // already exists → increase quantity
+            product.quantity += 1; // already exists → increase quantity
         } else {
             cart.items.push({ productId, quantity: 1 }); // new product add
         }
