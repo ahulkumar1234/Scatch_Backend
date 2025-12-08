@@ -8,11 +8,12 @@ const path = require('path');
 const UserRouter = require('./routes/user.route');
 const OwnerRouter = require('./routes/owner.route');
 const ProductRouter = require('./routes/product.route');
+const CartRouter = require('./routes/cart.route');
 
 //cross origin resource sharing
 const cors = require('cors')
 app.use(cors({
-    origin: ['http://localhost:5173','https://scatch-frontend-chi.vercel.app'],
+    origin: ['http://localhost:5173', 'https://scatch-frontend-chi.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
@@ -47,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/owners", OwnerRouter);
 app.use("/api/v1/products", ProductRouter);
-
+app.use("/api/v1/cart", CartRouter);
 
 
 
