@@ -75,7 +75,7 @@ const loginOwner = async (req, res) => {
     if (!findOwner) {
         return res.status(404).json({
             success: false,
-            message: 'User with email not found',
+            message: 'Owner with email not found',
         })
     }
 
