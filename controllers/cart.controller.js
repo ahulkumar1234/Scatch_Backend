@@ -1,4 +1,4 @@
-const Cart = require('../models/cart.model');
+const Cartmodel = require('../models/cart.model');
 
 
 
@@ -6,11 +6,11 @@ const addtoCart = async (req, res) => {
     const userId = req.user.id;
     const { productId } = req.body;
 
-    let cart = await Cart.findOne({ userId });
+    let cart = await Cartmodel.findOne({ userId });
 
     // If cart does not exist
     if (!cart) {
-        cart = await Cart.create({
+        cart = await Cartmodel.create({
             userId,
             items: [{ productId, quantity: 1 }]
         });
@@ -37,11 +37,11 @@ const getCartItems = async (req, res) => {
     try {
         const userId = req.user.id;
 
-        const cart = await Cart.findOne({ userId }).populate("items.productId"); //populate() ye karta hai: //➡ ProductId se Product collection me jaake //➡ Full product ka data lekar aa jata hai
+        const cart = await Cartmodel.findOne({ userId }).populate("items.productId"); //populate() ye karta hai: //➡ ProductId se Product collection me jaake //➡ Full product ka data lekar aa jata hai
 
         if (!cart) {
-            return res.status(200).json({
-                success: true,
+            return res.status(404).json({
+                success: false,
                 message: "Cart is empty",
                 items: []
             });
@@ -49,7 +49,7 @@ const getCartItems = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            Cartitems: cart.items
+            Cartitems: cart
         });
 
     } catch (error) {
@@ -60,9 +60,34 @@ const getCartItems = async (req, res) => {
     }
 };
 
+const deleteCart = async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const deletedCart = await Cartmodel.findByIdAndDelete(itemId);
+
+        if (!deletedCart) {
+            return res.status(404).json({
+                success: false,
+                message: "Cart not found!"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Cart deleted successfully!"
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
 
 
-module.exports = { addtoCart, getCartItems };
+
+module.exports = { addtoCart, getCartItems, deleteCart };
 
 
 // 🤝 Ek sentence me poora summary
