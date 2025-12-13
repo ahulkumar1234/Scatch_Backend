@@ -38,7 +38,7 @@ const checkAuth = async (req, res) => {
         }
 
         const decoded = jwt.verify(token, envVariables.accessToken);
-        const user = await userModel.findById(decoded.id).select('-password');
+        const user = await userModel.findById(decoded.id).select('-password'); //(-password)means dont send the password
 
         return res.status(200).json({
             loggedIn: true,

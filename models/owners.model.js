@@ -17,9 +17,6 @@ const ownerSchema = mongoose.Schema({
     product: {
         type: Number,
     },
-    gstin: {
-        type: String,
-    },
     picture: {
         type: String,
     }

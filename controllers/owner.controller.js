@@ -2,6 +2,7 @@ const ownerModel = require('../models/owners.model');
 const generateToken = require('../configs/envVariables')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const envVariables = require('../configs/envVariables');
 
 
 const getOwner = async (req, res) => {
@@ -19,6 +20,33 @@ const getOwner = async (req, res) => {
         });
     }
 };
+
+const checkOwnerAuth = async (req, res) => {
+    try {
+
+        const token = req.cookies.Ownertoken;
+        if (!token) {
+            return res.status(401).json({
+                OwnerLoggedin: false,
+                message: "Please login to access!"
+            });
+        }
+
+        const Ownerdecoded = jwt.verify(token, envVariables.accessToken);
+        const Owner = await ownerModel.findById(Ownerdecoded.id).select('-password');
+
+        res.status(200).json({
+            OwnerLoggedin: true,
+            OwnerDetails: Owner,
+        });
+
+    } catch (error) {
+        res.status(509).json({
+            success: false,
+            message: "Something went wrong!"
+        })
+    }
+}
 
 const registerOwner = async (req, res) => {
     let owners = await ownerModel.find();
@@ -47,10 +75,10 @@ const registerOwner = async (req, res) => {
         expiresIn: '1d',
     });
 
-    res.cookie('Ownertoken', Ownertoken<{
-        httpOnly:true,
-        secure:true,
-        sameSite:"none"
+    res.cookie('Ownertoken', Ownertoken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
     })
 
 
@@ -93,10 +121,10 @@ const loginOwner = async (req, res) => {
         expiresIn: '1d',
     });
 
-    res.cookie('Ownertoken', Ownertoken,{
-        httpOnly:true,
-        secure:true,
-        sameSite:"none"
+    res.cookie('Ownertoken', Ownertoken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
     });
 
     res.status(200).json({
@@ -120,6 +148,7 @@ const signoutOwner = async (req, res) => {
             secure: true,
             sameSite: "none",
         })
+
         res.status(200).json({ success: true, message: 'Singout successfully' })
 
     } catch (error) {
@@ -130,4 +159,4 @@ const signoutOwner = async (req, res) => {
     }
 }
 
-module.exports = { registerOwner, signoutOwner, loginOwner, getOwner };
+module.exports = { registerOwner, signoutOwner, loginOwner, getOwner, checkOwnerAuth };

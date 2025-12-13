@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerOwner, signoutOwner, loginOwner, getOwner } = require('../controllers/owner.controller')
+const { registerOwner, signoutOwner, loginOwner, getOwner, checkOwnerAuth } = require('../controllers/owner.controller')
 const Ownerauthmiddleware = require('../middlewares/ownerAuth.middleware')
 
 
@@ -10,7 +10,15 @@ const Ownerauthmiddleware = require('../middlewares/ownerAuth.middleware')
 // })
 
 
+router.get("/test", (req, res) => {
+  res.send("OWNER ROUTE WORKING");
+});
+
+
+
 router.get('/owner', getOwner);
+
+router.get('/ownerauth', checkOwnerAuth)
 
 router.post('/register', registerOwner);
 

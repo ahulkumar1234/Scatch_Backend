@@ -14,12 +14,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    cart: {
-        type: [],
-    },
-    orders: {
-        type: [],
-    },
     contact: {
         type: Number,
     },
