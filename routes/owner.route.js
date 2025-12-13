@@ -10,11 +10,6 @@ const Ownerauthmiddleware = require('../middlewares/ownerAuth.middleware')
 // })
 
 
-router.get("/test", (req, res) => {
-  res.send("OWNER ROUTE WORKING");
-});
-
-
 
 router.get('/owner', getOwner);
 
