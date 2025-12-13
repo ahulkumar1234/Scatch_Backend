@@ -62,10 +62,15 @@ const getCartItems = async (req, res) => {
 
 const deleteCart = async (req, res) => {
     try {
-        const itemId = req.params.id;
-        const deletedCart = await Cartmodel.findByIdAndDelete(itemId);
+        const userId = req.user.id;              // JWT se mili userId
+        const { productId } = req.params;        // URL se productId
 
-        if (!deletedCart) {
+        const updatedCart = await Cartmodel.findOneAndUpdate(
+            { userId }, { $pull: { items: { productId: productId } } },
+            { new: true }
+        );
+
+        if (!updatedCart) {
             return res.status(404).json({
                 success: false,
                 message: "Cart not found!"
@@ -74,7 +79,8 @@ const deleteCart = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "Cart deleted successfully!"
+            message: "Cart deleted successfully!",
+            cart: updatedCart
         });
 
     } catch (error) {
