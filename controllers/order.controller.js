@@ -1,6 +1,6 @@
 const ordersModel = require('../models/orders.model');
 const ProductModel = require('../models/product.model');
-
+const Cartmodel = require('../models/cart.model');
 
 const createOrder = async (req, res) => {
     try {
@@ -48,6 +48,9 @@ const createOrder = async (req, res) => {
             shippingPrice,
             totalPrice,
         });
+        
+        //Cart clear after Order succesfully!
+        await Cart.deleteMany({ userId: req.userId });
 
         res.status(200).json({
             success: true,
