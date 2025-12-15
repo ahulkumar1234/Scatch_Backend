@@ -11,14 +11,14 @@ const ProductRouter = require('./routes/product.route');
 const CartRouter = require('./routes/cart.route');
 const OrderRouter = require('./routes/order.route')
 //cross origin resource sharing
-const cors = require('cors')
+const cors = require('cors');
 app.use(cors({
     origin: ['http://localhost:5173', 'https://scatch-frontend-chi.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
+// app.options('/',cors());
 //------------------------------
-
 
 connectDB() // calling connectDB function
 
@@ -30,8 +30,8 @@ app.use(cookieParser());
 
 
 //-----------------------------------------
-app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
+// app.set('view engine', 'ejs');
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // app.get('/', (req, res) => {
 //     res.render('index');

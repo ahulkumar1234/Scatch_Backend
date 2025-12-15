@@ -6,7 +6,7 @@ const { createOrder } = require('../controllers/order.controller')
 
 
 
-router.post('/order', auth, createOrder);
+router.post('/create', auth, createOrder);
 
 
 
