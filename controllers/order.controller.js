@@ -79,7 +79,7 @@ const createOrder = async (req, res) => {
 const getOrder = async (req, res) => {
     try {
         const order = await ordersModel
-            .findById(req.params.id)
+            .findById(req.params.orderId)
             .populate("userId", "name email");
 
         if (!order) {
