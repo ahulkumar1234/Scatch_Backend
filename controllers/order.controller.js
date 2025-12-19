@@ -26,6 +26,14 @@ const createOrder = async (req, res) => {
                 });
             };
 
+            if (item.quantity <= 0) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid quantity"
+                });
+            }
+
+
             itemsPrice += product.price * item.quantity;
 
             // snapshot price
@@ -38,6 +46,7 @@ const createOrder = async (req, res) => {
         const shippingPrice = itemsPrice > 500 ? 0 : 50;
         const totalPrice = itemsPrice + taxPrice + shippingPrice;
 
+        //order creation
         const createdOrder = await ordersModel.create({
             userId: req.user.id,
             orderItems,
@@ -48,12 +57,13 @@ const createOrder = async (req, res) => {
             shippingPrice,
             totalPrice,
         });
-        
-        //Cart clear after Order succesfully!
-        await Cart.deleteMany({ userId: req.userId });
 
-        res.status(200).json({
+        //Cart clear after Order succesfully!
+        await Cartmodel.deleteMany({ userId: req.userId });
+
+        res.status(201).json({
             success: true,
+            message: "Order placed successfully",
             orderData: createdOrder,
         });
 
