@@ -26,6 +26,21 @@ const getAllUser = async (req, res) => {
     }
 }
 
+const profile = async (req, res) => {
+    try {
+        res.status(201).json({
+            success: true,
+            message: "User fetched!",
+            user: req.user
+        });
+    } catch (error) {
+        res.status(509).json({
+            success: false,
+            message: "Something went wrong!"
+        })
+    }
+}
+
 const checkAuth = async (req, res) => {
     try {
         const token = req.cookies.token;
@@ -200,4 +215,4 @@ const logoutUser = async (req, res) => {
 
 
 
-module.exports = { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth }
+module.exports = { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile }
