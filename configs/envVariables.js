@@ -1,4 +1,5 @@
 const dotEnv = require('dotenv');
+const Razorpay = require('razorpay');
 dotEnv.config();
 
 const envVariables = {
@@ -10,6 +11,11 @@ const envVariables = {
         cloudName: process.env.CLOUD_NAME,
         apiKey: process.env.CLOUD_KEY,
         apiSecret: process.env.CLOUD_SECRET,
+    },
+
+    razorpay: {
+        key_id: process.env.RAZORPAY_KEY_ID,
+        key_secret: process.env.RAZORPAY_KEY_SECRET,
     },
 };
 
