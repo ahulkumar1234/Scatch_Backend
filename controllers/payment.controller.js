@@ -21,7 +21,7 @@ const createRazorpayOrder = async (req, res) => {
             success: true,
             order,
         });
-       
+
     } catch (error) {
         res.status(500).json({
             success: false,

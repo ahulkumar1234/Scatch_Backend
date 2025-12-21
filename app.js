@@ -9,8 +9,8 @@ const UserRouter = require('./routes/user.route');
 const OwnerRouter = require('./routes/owner.route');
 const ProductRouter = require('./routes/product.route');
 const CartRouter = require('./routes/cart.route');
-const OrderRouter = require('./routes/order.route')
-const PaymentRouter = require('./routes/payment.routes')
+const OrderRouter = require('./routes/order.route');
+const PaymentRouter = require('./routes/payment.routes');
 //cross origin resource sharing
 const cors = require('cors');
 app.use(cors({
