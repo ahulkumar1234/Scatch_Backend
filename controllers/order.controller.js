@@ -56,7 +56,14 @@ const createOrder = async (req, res) => {
             taxPrice,
             shippingPrice,
             totalPrice,
+
+            // 🔥 ONLINE PAYMENT CASE
+            isPaid: paymentMethod === "ONLINE",
+            paidAt: paymentMethod === "ONLINE" ? Date.now() : null,
+            paymentResult: paymentMethod === "ONLINE" ? paymentResult : null,
         });
+
+
 
         //Cart clear after Order succesfully!
         await Cartmodel.deleteMany({ userId: req.userId });
@@ -98,7 +105,7 @@ const getOrder = async (req, res) => {
         });
     }
 }
- 
+
 
 
 module.exports = { createOrder, getOrder }

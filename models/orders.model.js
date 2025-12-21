@@ -44,6 +44,12 @@ const orderSchema = mongoose.Schema({
         type: String,
         default: "Processing",
     },
+    paymentResult: {
+        razorpay_order_id: String,
+        razorpay_payment_id: String,
+        razorpay_signature: String,
+    },
+    paidAt: Date,
 }, { timestamps: true });
 
 
