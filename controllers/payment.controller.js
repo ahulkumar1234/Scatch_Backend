@@ -1,4 +1,4 @@
-const envVariables = require('../configs/envVariables');
+const razorpay = require("../configs/razorpay");
 
 const createRazorpayOrder = async (req, res) => {
     try {
@@ -11,8 +11,8 @@ const createRazorpayOrder = async (req, res) => {
             });
         }
        
-        const order = await envVariables.razorpay.orders.create({
-            amount: amount * 100, //paise
+        const order = await razorpay.orders.create({
+            amount: Math.round(amount * 100), //paise
             currency: "INR",
             receipt: `rcpt_${Date.now()}`,
         });
@@ -21,7 +21,7 @@ const createRazorpayOrder = async (req, res) => {
             success: true,
             order,
         });
-
+       
     } catch (error) {
         res.status(500).json({
             success: false,

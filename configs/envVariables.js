@@ -1,12 +1,5 @@
 const dotEnv = require('dotenv');
 dotEnv.config();
-const Razorpay = require("razorpay");
-
-// 🔥 Razorpay INSTANCE
-const razorpayInstance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
 
 const envVariables = {
     PORT: process.env.PORT,
@@ -19,10 +12,10 @@ const envVariables = {
         apiSecret: process.env.CLOUD_SECRET,
     },
 
-
-    // ✅ INSTANCE export
-    razorpay: razorpayInstance,
-
+    razorpay: {
+        key_id: process.env.RAZORPAY_KEY_ID,
+        key_secret: process.env.RAZORPAY_KEY_SECRET,
+    },
 };
 
 
