@@ -185,7 +185,7 @@ const logoutUser = async (req, res) => {
 
     try {
         const { id } = req.user;
-
+        const token = req.cookies.token;
         const findUser = await userModel.findById(id);
 
         if (!findUser) {
@@ -194,7 +194,7 @@ const logoutUser = async (req, res) => {
                 message: 'No user found',
             })
         }
-        res.clearCookie("token", {
+        res.clearCookie("token", token, {
             httpOnly: true,
             secure: true,
             sameSite: "none"
@@ -213,6 +213,43 @@ const logoutUser = async (req, res) => {
 
 };
 
+const deleteUser = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const user = await userModel.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: "Invalid password" });
+        }
+
+        user.isDeleted = true;
+        user.deletedAt = new Date();
+        await user.save();
+
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Account deleted successfully",
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
 
 
-module.exports = { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile }
+
+module.exports = { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile, deleteUser }
