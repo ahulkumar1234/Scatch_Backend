@@ -2,17 +2,19 @@ const razorpay = require("../configs/razorpay");
 
 const createRazorpayOrder = async (req, res) => {
     try {
-        const { amount } = req.body; // amount in rupees
-       
-        if (!amount) {
+        let { amount } = req.body;
+
+        amount = Math.round(Number(amount));
+
+        if (!amount || amount <= 0) {
             return res.status(400).json({
                 success: false,
-                message: "Amount is required",
+                message: "Invalid amount",
             });
         }
-       
+
         const order = await razorpay.orders.create({
-            amount: Math.round(amount * 100), //paise
+            amount: amount * 100, // paise
             currency: "INR",
             receipt: `rcpt_${Date.now()}`,
         });
@@ -23,13 +25,13 @@ const createRazorpayOrder = async (req, res) => {
         });
 
     } catch (error) {
+        console.error("Razorpay Error:", error);
         res.status(500).json({
             success: false,
             message: error.message,
         });
-    };
+    }
 };
-
 
 
 
