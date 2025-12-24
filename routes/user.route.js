@@ -18,7 +18,7 @@ router.put('/:id', authmiddleware, updateUser);
 
 router.post('/logout', authmiddleware, logoutUser);
 
-router.post('/remove', authmiddleware, deleteUser)
+router.delete('/remove', authmiddleware, deleteUser)
 
 
 

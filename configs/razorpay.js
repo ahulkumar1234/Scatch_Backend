@@ -7,3 +7,4 @@ const razorpay = new Razorpay({
 });
 
 module.exports = razorpay;
+console.log("Razorpay instance in controller:", razorpay);

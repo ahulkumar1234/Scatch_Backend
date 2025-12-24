@@ -22,5 +22,4 @@ const envVariables = {
 
 Object.freeze(envVariables);
 
-
 module.exports = envVariables;
