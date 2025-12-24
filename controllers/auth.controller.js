@@ -41,6 +41,45 @@ const profile = async (req, res) => {
     }
 }
 
+const uploadProfile = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: "Please upload an image",
+            });
+        }
+
+        const imageUrl = req.file.path; // Cloudinary secure URL
+        const userId = req.user.id;
+
+        const user = await userModel.findByIdAndUpdate(
+            userId,
+            { picture: imageUrl },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Profile picture updated successfully",
+            user,
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
+
 const checkAuth = async (req, res) => {
     try {
         const token = req.cookies.token;
@@ -252,4 +291,4 @@ const deleteUser = async (req, res) => {
 
 
 
-module.exports = { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile, deleteUser }
+module.exports = { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile, uploadProfile, deleteUser }

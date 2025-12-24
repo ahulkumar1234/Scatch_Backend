@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile, deleteUser } = require('../controllers/auth.controller');
-const authmiddleware = require('../middlewares/auth.middleware')
+const { registerUser, loginUser, updateUser, logoutUser, getAllUser, checkAuth, profile, uploadProfile, deleteUser } = require('../controllers/auth.controller');
+const authmiddleware = require('../middlewares/auth.middleware');
+const upload = require('../middlewares/UserProfile.multer');
 
 
 router.get('/', getAllUser);
 
 router.get('/profile', checkAuth, profile);
+
+router.post('/upload', authmiddleware, upload.single('image'), uploadProfile)
 
 router.get("/me", checkAuth);
 
