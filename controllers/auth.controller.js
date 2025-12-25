@@ -253,40 +253,38 @@ const logoutUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    try {
-        const { password } = req.body;
-        const user = await userModel.findById(req.user.id);
+  try {
+    const user = await userModel.findById(req.user.id);
 
-        if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ success: false, message: "Invalid password" });
-        }
-
-        user.isDeleted = true;
-        user.deletedAt = new Date();
-        await user.save();
-
-        res.clearCookie("token", {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-        });
-
-        return res.status(200).json({
-            success: true,
-            message: "Account deleted successfully",
-        });
-
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Server error",
-        });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
+
+    user.isDeleted = true;
+    user.deletedAt = new Date();
+    await user.save();
+
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Account deleted successfully",
+    });
+
+  } catch (error) {
+    console.log(error); // 🔥 debugging
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 
