@@ -1,10 +1,10 @@
 const getRazorpayInstance = require("../configs/razorpay");
-const razorpay = getRazorpayInstance();
 
 
 
 const createRazorpayOrder = async (req, res) => {
     try {
+        const razorpay = getRazorpayInstance();
         let { amount } = req.body;
 
         amount = Math.round(Number(amount));
