@@ -181,6 +181,15 @@ const loginUser = async (req, res) => {
                 message: "User with email not found",
             });
         }
+
+        //checking user account deleted or not
+        if (findExistingUser.isDeleted) {
+            return res.status(403).json({
+                success: false,
+                message: "Account has been deleted",
+            });
+        }
+
         //Check password correct or not
         const verifyPassword = await bcrypt.compare(password, findExistingUser.password);
         if (!verifyPassword) {
@@ -277,6 +286,7 @@ const deleteUser = async (req, res) => {
             success: true,
             message: "Account deleted successfully",
         });
+
 
     } catch (error) {
         res.status(500).json({
