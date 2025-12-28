@@ -1,6 +1,5 @@
 const getRazorpayInstance = require("../configs/razorpay");
 const crypto = require("crypto");
-
 const envVariables = require('../configs/envVariables')
 
 const createRazorpayOrder = async (req, res) => {
