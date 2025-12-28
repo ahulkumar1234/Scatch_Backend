@@ -5,7 +5,7 @@ const Cartmodel = require('../models/cart.model');
 const createOrder = async (req, res) => {
     try {
 
-        const { orderItems, shippingAddress, paymentMethod } = req.body;
+        const { orderItems, shippingAddress, paymentMethod, paymentResult } = req.body;
 
         if (!orderItems || orderItems.length === 0) {
             return res.status(404).json({
