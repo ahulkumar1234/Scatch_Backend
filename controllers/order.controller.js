@@ -67,7 +67,7 @@ const createOrder = async (req, res) => {
 
 
         //Cart clear after Order succesfully!
-        await Cartmodel.deleteMany({ userId: userId.id });
+        await Cartmodel.deleteMany({ userId: req.user.id });
 
 
         res.status(201).json({
