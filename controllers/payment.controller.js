@@ -34,7 +34,6 @@ const createRazorpayOrder = async (req, res) => {
     }
 };
 
-
 const verifyRazorpayOrder = async (req, res) => {
     try {
         const {
