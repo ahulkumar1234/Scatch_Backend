@@ -60,13 +60,15 @@ const createOrder = async (req, res) => {
             // 🔥 ONLINE PAYMENT CASE
             isPaid: paymentMethod === "ONLINE",
             paidAt: paymentMethod === "ONLINE" ? Date.now() : null,
+            status: paymentMethod === "ONLINE" ? "Paid" : "Processing",
             paymentResult: paymentMethod === "ONLINE" ? paymentResult : null,
         });
 
 
 
         //Cart clear after Order succesfully!
-        await Cartmodel.deleteMany({ userId: req.userId });
+        await Cartmodel.deleteMany({ userId: req.user.id });
+
 
         res.status(201).json({
             success: true,
