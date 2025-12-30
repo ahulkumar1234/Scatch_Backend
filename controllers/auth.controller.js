@@ -202,14 +202,14 @@ const loginUser = async (req, res) => {
         // Token generation
         const token = jwt.sign({ id: findExistingUser._id },
             generateToken.accessToken, {
-            expiresIn: '1d',
+            expiresIn: '15m',
         });
 
         res.cookie('token', token, {
             httpOnly: true,
             secure: true,
             sameSite: "none",
-            maxAge: 24 * 60 * 60 * 1000 
+            maxAge: 15 * 60 * 1000 
         });
 
         return res.status(200).json({
