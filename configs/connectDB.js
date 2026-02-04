@@ -13,4 +13,6 @@ const connectDB = async () => {
     }
 }
 
+Object.freeze(connectDB)
+
 module.exports = connectDB;

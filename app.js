@@ -60,7 +60,7 @@ app.use("/api/v1/payment", PaymentRouter);
 const PORT = env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server is runnig on port ${env.PORT}`)
+    console.log(`Server is runnig on port ${PORT}`)
 });
 
 

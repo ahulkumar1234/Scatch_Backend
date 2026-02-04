@@ -18,7 +18,6 @@ const getAllUser = async (req, res) => {
             });
 
     } catch (error) {
-        console.log(error.message)
         return res.status(500).json({
             success: false,
             message: "failed to fetch all users"
@@ -146,7 +145,8 @@ const registerUser = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: true,
-            sameSite: "none"
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24,
         })
 
         res.status(200).json({
