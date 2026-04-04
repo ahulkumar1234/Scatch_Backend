@@ -16,7 +16,7 @@ const addtoCart = async (req, res) => {
         });
     } else {
         // If cart exists
-        const product = cart.items.find(i => i.productId == productId);
+        const product = cart.items.find(i => i.productId === productId);
         if (product) {
             product.quantity += 1; // already exists → increase quantity
         } else {
@@ -96,8 +96,8 @@ const deleteCart = async (req, res) => {
 module.exports = { addtoCart, getCartItems, deleteCart };
 
 
-// 🤝 Ek sentence me poora summary
+// Just for understanding that what is happening here
 
-// Agar user ka cart pehli baar ban raha ho to cart create karo,
-// agar cart already ho to agar product pehle se hai quantity badhao,
-// nahi hai to naya product add karo
+// Agar user ka cart pehli baar ban raha ho to cart create ho raha hai,
+// agar cart already ho to agar product pehle se hai quantity badh raha hai,
+// nahi hai to naya product add ho raha hai
